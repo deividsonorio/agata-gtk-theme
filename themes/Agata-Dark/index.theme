@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=Agata-Dark
+Comment=A dark GTK theme using the Nord blue palette
+Author=Deivid Schlosser Onorio
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=Agata-Dark
+MetacityTheme=Agata-Dark
+IconTheme=Adwaita
+CursorTheme=Adwaita
+ButtonLayout=:minimize,maximize,close
