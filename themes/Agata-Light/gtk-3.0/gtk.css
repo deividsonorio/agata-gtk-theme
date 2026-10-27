@@ -3934,7 +3934,7 @@ tooltip {
 }
 
 tooltip.background {
-  background-color: rgba(25, 25, 25, 0.9);
+  background-color: #ECEFF4;
   color: #2E3440;
 }
 
@@ -8108,3 +8108,8 @@ FIXME this is really an API */
 @define-color BLACK_500 #E5E9F0;
 @define-color BLACK_700 #E5E9F0;
 @define-color BLACK_900 #E5E9F0;
+
+
+/* Agata-Light tooltip contrast fix */
+tooltip, tooltip label { color: #2E3440; }
+tooltip.background { background-color: #ECEFF4; }

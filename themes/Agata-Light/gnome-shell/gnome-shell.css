@@ -2961,7 +2961,7 @@ StWidget.focused .app-grid-running-dot {
   border-radius: 9999px;
   padding: 6px 12px;
   color: #2E3440;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: #ECEFF4;
   border: none;
   box-shadow: none;
   text-align: center;
@@ -4318,4 +4318,81 @@ StWidget.focused .app-grid-running-dot {
 
 .openweather-sunrise-icon, .openweather-sunset-icon, .openweather-build-icon {
   color: rgba(46, 52, 64, 0.7);
+}
+
+
+/* Agata-Light fixes: readable dock labels and light window-preview cards */
+.dash-label {
+  color: #2E3440 !important;
+  background-color: #ECEFF4 !important;
+  border: 1px solid rgba(46, 52, 64, 0.12);
+  text-shadow: none;
+}
+.screenshot-ui-tooltip {
+  color: #2E3440 !important;
+  background-color: #ECEFF4 !important;
+}
+#dashtodockContainer .popup-menu .popup-menu-content,
+#dashtodockContainer .dashtodock-app-well-preview-menu-item,
+.window-preview,
+.window-preview-box,
+.window-preview-bin,
+.window-clone-border {
+  background-color: #E5E9F0;
+  color: #2E3440;
+}
+#dashtodockContainer .popup-menu .popup-menu-content {
+  border: 1px solid rgba(46, 52, 64, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(46, 52, 64, 0.18);
+}
+
+
+/* Agata-Light v2: keep Dash-to-Dock window previews light on hover/focus */
+#dashtodockContainer .popup-menu,
+#dashtodockContainer .popup-menu .popup-menu-content,
+#dashtodockContainer .popup-menu .popup-menu-content:hover,
+#dashtodockContainer .popup-menu .popup-menu-content:focus,
+#dashtodockContainer .dashtodock-app-well-preview-menu-item,
+#dashtodockContainer .dashtodock-app-well-preview-menu-item:hover,
+#dashtodockContainer .dashtodock-app-well-preview-menu-item:focus,
+#dashtodockContainer .dashtodock-app-well-preview-menu-item:active {
+  background-color: #E5E9F0 !important;
+  color: #2E3440 !important;
+  text-shadow: none !important;
+}
+
+#dashtodockContainer .popup-menu .popup-menu-item,
+#dashtodockContainer .popup-menu .popup-menu-item:hover,
+#dashtodockContainer .popup-menu .popup-menu-item:focus,
+#dashtodockContainer .popup-menu .popup-menu-item:active,
+#dashtodockContainer .popup-menu .popup-menu-item.selected {
+  color: #2E3440 !important;
+  text-shadow: none !important;
+}
+
+#dashtodockContainer .popup-menu .popup-menu-item:hover,
+#dashtodockContainer .popup-menu .popup-menu-item:focus,
+#dashtodockContainer .popup-menu .popup-menu-item.selected {
+  background-color: rgba(46, 52, 64, 0.08) !important;
+}
+
+#dashtodockContainer .window-preview,
+#dashtodockContainer .window-preview:hover,
+#dashtodockContainer .window-preview-box,
+#dashtodockContainer .window-preview-box:hover,
+#dashtodockContainer .window-preview-bin,
+#dashtodockContainer .window-preview-bin:hover,
+#dashtodockContainer .window-clone-border,
+#dashtodockContainer .window-clone-border:hover {
+  background-color: #E5E9F0 !important;
+  color: #2E3440 !important;
+  text-shadow: none !important;
+}
+
+#dashtodockContainer .dash-label,
+#dashtodockContainer .dash-label:hover {
+  background-color: #ECEFF4 !important;
+  color: #2E3440 !important;
+  text-shadow: none !important;
 }

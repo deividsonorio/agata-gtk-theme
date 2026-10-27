@@ -268,7 +268,7 @@ StScrollBar StButton#vhandle:active, StScrollBar StButton#hhandle:active {
 #Tooltip {
   border-radius: 9999px;
   padding: 6px 12px;
-  background-color: rgba(25, 25, 25, 0.9);
+  background-color: #ECEFF4;
   color: #2E3440;
   margin: 6px;
   box-shadow: 0 2px 3px -1px rgba(0, 0, 0, 0.15), 0 4px 3px 0 rgba(0, 0, 0, 0.18), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
@@ -616,7 +616,7 @@ StScrollBar StButton#vhandle:active, StScrollBar StButton#hhandle:active {
 
 .expo-workspace-thumbnail-frame#active {
   border: 4px solid #81A1C1;
-  background-color: black;
+  background-color: #E5E9F0;
   border-radius: 12px;
 }
 
@@ -2340,4 +2340,21 @@ StScrollBar StButton#vhandle:active, StScrollBar StButton#hhandle:active {
   border: 0px;
   background-color: rgba(0, 0, 0, 0);
   border-radius: 0px;
+}
+
+
+/* Agata-Light fixes: readable tooltips and consistent preview surfaces */
+#Tooltip {
+  background-color: #ECEFF4 !important;
+  color: #2E3440 !important;
+  border: 1px solid rgba(46, 52, 64, 0.12);
+  text-shadow: none;
+}
+.expo-workspace-thumbnail-frame#active {
+  background-color: #E5E9F0;
+}
+.window-list-preview,
+.grouped-window-list-thumbnail-menu {
+  background-color: #E5E9F0;
+  color: #2E3440;
 }

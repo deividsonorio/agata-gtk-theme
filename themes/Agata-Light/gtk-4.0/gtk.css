@@ -5064,7 +5064,7 @@ tooltip {
 }
 
 tooltip.background {
-  background-color: rgba(25, 25, 25, 0.9);
+  background-color: #ECEFF4;
   color: #2E3440;
   box-shadow: 0 2px 3px -1px rgba(0, 0, 0, 0.15), 0 4px 3px 0 rgba(0, 0, 0, 0.18), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
   border-radius: 6px;
@@ -7822,3 +7822,8 @@ FIXME this is really an API */
 @define-color BLACK_500 #E5E9F0;
 @define-color BLACK_700 #E5E9F0;
 @define-color BLACK_900 #E5E9F0;
+
+
+/* Agata-Light tooltip contrast fix */
+tooltip, tooltip label { color: #2E3440; }
+tooltip.background { background-color: #ECEFF4; }
