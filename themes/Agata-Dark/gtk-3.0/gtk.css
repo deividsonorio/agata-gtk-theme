@@ -8108,3 +8108,44 @@ FIXME this is really an API */
 @define-color BLACK_500 #394253;
 @define-color BLACK_700 #394253;
 @define-color BLACK_900 #394253;
+
+
+/* Agata XFCE refinements: Whisker menu edge and panel contrast */
+window#whiskermenu-window {
+  border: 0;
+  box-shadow: none;
+  background-color: transparent;
+}
+window#whiskermenu-window > frame,
+window#whiskermenu-window > frame > border {
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+}
+
+/* Keep XFCE panel symbolic icons legible in Agata-Dark */
+.xfce4-panel.background image {
+  color: #D8DEE9;
+}
+
+
+/* Agata XFCE Whisker menu border fix — preserve existing panel styles */
+#whiskermenu-window,
+#whiskermenu-window.background,
+#whiskermenu-window .background,
+window#whiskermenu-window,
+window#whiskermenu-window.background {
+  border-radius: 0;
+  box-shadow: none;
+  border: 1px solid #4C566A;
+  margin: 0;
+  background-clip: padding-box;
+}
+.xfce4-panel menu,
+.xfce4-panel .menu,
+#XfcePanelWindow menu {
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  border: 1px solid #4C566A;
+}

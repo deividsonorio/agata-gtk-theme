@@ -7827,3 +7827,45 @@ FIXME this is really an API */
 /* Agata-Light tooltip contrast fix */
 tooltip, tooltip label { color: #2E3440; }
 tooltip.background { background-color: #ECEFF4; }
+
+
+/* Agata XFCE menu edge compatibility rules */
+/* GTK4-compatible styling; XFCE Whisker itself normally uses GTK3. */
+#whiskermenu-window,
+window#whiskermenu-window,
+#whiskermenu-window.background,
+window#whiskermenu-window.background {
+  border: 0;
+  outline: none;
+  box-shadow: none;
+  background-clip: padding-box;
+}
+#whiskermenu-window decoration,
+window#whiskermenu-window decoration {
+  border: 0;
+  outline: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+
+/* Agata XFCE Whisker menu border fix — preserve existing panel styles */
+#whiskermenu-window,
+#whiskermenu-window.background,
+#whiskermenu-window .background,
+window#whiskermenu-window,
+window#whiskermenu-window.background {
+  border-radius: 0;
+  box-shadow: none;
+  border: 1px solid #C8D0DC;
+  margin: 0;
+  background-clip: padding-box;
+}
+.xfce4-panel menu,
+.xfce4-panel .menu,
+#XfcePanelWindow menu {
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  border: 1px solid #C8D0DC;
+}
