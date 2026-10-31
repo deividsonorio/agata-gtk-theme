@@ -1,24 +1,25 @@
 # Agata GTK Theme
-v1.0.4
 
-Agata is a modern GTK theme inspired by the **Nord color palette**, featuring muted blue accents, cool blue-gray surfaces, and carefully balanced contrast.
+**v1.0.4**
 
-Designed to provide a clean, elegant, and consistent desktop experience, Agata is available in two variants:
+Agata is a modern GTK theme featuring two carefully crafted color editions: **Nord** and **Gruvbox**. It combines elegant surfaces, balanced contrast, and distinctive color accents to provide a clean and consistent desktop experience.
 
-- **Agata-Nord-Dark** — a dark interface with deep blue-gray surfaces and soft blue highlights.
-- **Agata-Nord-Light** — a light interface with subtle gray-blue tones and balanced contrast.
+- **Nord** — muted blue accents and cool blue-gray surfaces, inspired by the Nord color palette.
+- **Gruvbox** — warm, earthy tones inspired by the Gruvbox color palette.
 
-### Features
+Both editions are available in Dark and Light variants.
 
-- Nord-inspired color scheme with restrained blue accents.
+## Features
+
+- Two color editions: Nord and Gruvbox.
 - Dark and Light variants.
 - GTK 3 and GTK 4 styling.
 - Desktop components for GNOME, Cinnamon, and XFCE/XFWM.
 - XFCE panel and menu styling.
-- Optional GTK 4/libadwaita application integration through the installer.
+- Optional GTK 4/libadwaita application integration.
 - Ready-to-use theme files — no compilation required.
 
-### Installation
+## Installation
 
 Download and extract the latest release, open a terminal in the extracted directory, and run:
 
@@ -27,7 +28,11 @@ chmod +x install.sh
 ./install.sh
 ```
 
-The installer provides an interactive menu to install Agata-Nord-Dark, Agata-Nord-Light, or both variants.
+The interactive installer guides you through three simple choices:
+
+1. Select the color edition: Nord or Gruvbox.
+2. Select the variant: Dark, Light, or Both.
+3. Choose whether to enable optional GTK 4/libadwaita integration.
 
 Themes are installed locally for the current user in:
 
@@ -37,64 +42,124 @@ Themes are installed locally for the current user in:
 
 No administrator privileges or `sudo` are required.
 
-#### Command-line installation
+## Command-line installation
 
-Install a specific variant:
+You can also install themes directly from the terminal without using the interactive menu.
+
+### Nord edition
+
+Install both variants:
 
 ```bash
-./install.sh --dark
-./install.sh --light
-./install.sh --both
+./install.sh install nord both
 ```
 
-#### GTK 4 / libadwaita integration
-
-To make GTK 4 applications use Agata's GTK 4 stylesheet, install a variant and enable the optional configuration link:
+Install only Dark or Light:
 
 ```bash
-./install.sh --light --libadwaita
+./install.sh install nord dark
+./install.sh install nord light
 ```
 
-For the dark variant:
+### Gruvbox edition
+
+Install both variants:
 
 ```bash
-./install.sh --dark --libadwaita
+./install.sh install gruvbox both
 ```
 
-The installer links the selected theme's `gtk-4.0` directory to `~/.config/gtk-4.0`. If an existing configuration directory is found, it is backed up before the link is created.
-
-**Note:** libadwaita applications may restrict or partially ignore third-party GTK themes, depending on the application and libadwaita version. This option provides GTK 4 theme integration where supported; it cannot guarantee that every libadwaita application will follow all theme styles.
-
-#### Uninstall
+Install only Dark or Light:
 
 ```bash
-./install.sh --uninstall dark
-./install.sh --uninstall light
-./install.sh --uninstall both
+./install.sh install gruvbox dark
+./install.sh install gruvbox light
+```
+
+### GTK 4 / libadwaita integration
+
+Add `--libadwaita` to an installation command to enable optional GTK 4 theme integration.
+
+For example:
+
+```bash
+./install.sh install nord light --libadwaita
+```
+
+Or:
+
+```bash
+./install.sh install gruvbox dark --libadwaita
+```
+
+When both variants are installed, the installer asks which variant should be used for GTK 4 applications.
+
+The installer links the selected theme's `gtk-4.0` directory to:
+
+```text
+~/.config/gtk-4.0
+```
+
+If an existing GTK 4 configuration is found, it is backed up before the link is created.
+
+**Note:** Some libadwaita applications may restrict or partially ignore third-party GTK themes, depending on the application and libadwaita version. This option provides GTK 4 theme integration where supported, but cannot guarantee that every libadwaita application will follow all theme styles.
+
+## Uninstallation
+
+Use the interactive menu or remove a specific edition from the terminal.
+
+Remove Nord:
+
+```bash
+./install.sh remove nord both
+```
+
+Remove Gruvbox:
+
+```bash
+./install.sh remove gruvbox both
+```
+
+Remove all Agata themes:
+
+```bash
+./install.sh remove all
 ```
 
 To remove the optional GTK 4 configuration link and restore the previous configuration:
 
 ```bash
-./install.sh --unlink-libadwaita
+./install.sh remove-libadwaita
 ```
 
-### Compatibility
+## Advanced options
 
-Agata is designed for Linux desktop environments that support GTK themes, including GNOME, Cinnamon, and XFCE. Appearance may vary depending on the desktop environment, GTK version, compositor, and extensions.
+Use a custom installation directory:
 
-### Credits
+```bash
+./install.sh install nord both --dest /path/to/themes
+```
+
+Display all available commands:
+
+```bash
+./install.sh --help
+```
+
+## Compatibility
+
+Agata is designed for Linux desktop environments that support GTK themes, including GNOME, Cinnamon, and XFCE.
+
+Appearance may vary depending on the desktop environment, GTK version, compositor, and extensions.
+
+## Wallpapers
+
+Matching wallpapers for the Agata theme are available in the repository:
+
+[Wallpapers](https://github.com/deividsonorio/agata-gtk-theme/tree/main/wallpapers)
+
+## Credits
 
 Agata is based on the [Jasper GTK theme](https://github.com/vinceliuice/Jasper-gtk-theme).
 
 Please refer to the repository for attribution and licensing information.
-
-
-## Gruvbox variants
-
-This release adds two additional themes while keeping the original Nord variants unchanged:
-
-- `Agata-Gruvbox-Dark`
-- `Agata-Gruvbox-Light`
-
-Install from the interactive menu or run `./install.sh --gruvbox-dark`, `./install.sh --gruvbox-light`, or `./install.sh --gruvbox-both`. Add `--libadwaita` to any of these options to link the selected GTK 4 theme.
