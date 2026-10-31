@@ -1,229 +1,515 @@
+
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
 REPO_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 THEMES_DIR="${REPO_DIR}/themes"
+
 DEST="${HOME}/.local/share/themes"
-CHOICE=""
-UNINSTALL=0
+CONFIG_DIR="${HOME}/.config"
+GTK4_CONFIG="${CONFIG_DIR}/gtk-4.0"
+
+EDITION=""
+VARIANT=""
+ACTION=""
 LIBADWAITA=0
-UNLINK_LIBADWAITA=0
+
+THEMES=()
+LINK_THEME=""
+
+# --------------------------------------------------
+# General functions
+# --------------------------------------------------
+
+fail() {
+    printf 'Error: %s\n' "$*" >&2
+    exit 1
+}
+
+info() {
+    printf '\n%s\n' "$*"
+}
+
+is_agata_theme() {
+    case "$1" in
+        */Agata-Nord-Dark/gtk-4.0|*/Agata-Nord-Light/gtk-4.0|\
+        */Agata-Gruvbox-Dark/gtk-4.0|*/Agata-Gruvbox-Light/gtk-4.0)
+            return 0
+            ;;
+        *)
+            return 1
+            ;;
+    esac
+}
+
+
+theme_name() {
+    local edition="$1"
+    local variant="$2"
+
+    case "$edition" in
+        nord)
+            printf 'Agata-Nord-%s' "$variant"
+            ;;
+        gruvbox)
+            printf 'Agata-Gruvbox-%s' "$variant"
+            ;;
+        *)
+            fail "invalid edition: $edition"
+            ;;
+    esac
+}
+
+# --------------------------------------------------
+# Help
+# --------------------------------------------------
 
 usage() {
-  cat <<'EOF'
+    cat <<'EOF'
 Agata GTK Theme Installer
 
 Usage:
-  ./install.sh                         Interactive menu
-  ./install.sh --dark                   Install Agata-Dark
-  ./install.sh --light                  Install Agata-Light
-  ./install.sh --both                   Install both variants
-  ./install.sh --dark --libadwaita      Install Dark and link GTK 4 config
-  ./install.sh --light --libadwaita     Install Light and link GTK 4 config
-  ./install.sh --uninstall dark|light|both
-  ./install.sh --unlink-libadwaita      Remove Agata GTK 4 config link
-  ./install.sh --dest DIR               Set theme installation directory
-  ./install.sh --help                   Show this help
+  ./install.sh
+      Open interactive installer
 
-Default theme directory:
+  ./install.sh install nord both
+      Install Nord Dark and Light
+
+  ./install.sh install gruvbox dark
+      Install Gruvbox Dark
+
+  ./install.sh install nord light --libadwaita
+      Install Nord Light with GTK 4 integration
+
+  ./install.sh remove nord both
+      Remove Nord Dark and Light
+
+  ./install.sh remove gruvbox dark
+      Remove Gruvbox Dark
+
+  ./install.sh remove all
+      Remove all Agata themes
+
+  ./install.sh remove-libadwaita
+      Remove GTK 4 integration and restore backup
+
+Options:
+  --libadwaita     Enable GTK 4 integration
+  --dest DIR       Change installation directory
+  --help           Show this help
+
+Available editions:
+  nord
+  gruvbox
+
+Available variants:
+  dark
+  light
+  both
+
+Default installation directory:
   ~/.local/share/themes
-
-Optional GTK 4/libadwaita integration:
-  --libadwaita links the selected variant's gtk-4.0 directory to:
-  ~/.config/gtk-4.0
-
-If ~/.config/gtk-4.0 already exists, it is moved to a timestamped
-backup before the link is created. Use --unlink-libadwaita to remove
-the Agata link and restore the newest available backup.
 
 No compilation or sudo is required.
 EOF
 }
 
-fail() { printf 'Error: %s\n' "$*" >&2; exit 1; }
+# --------------------------------------------------
+# Interactive menus
+# --------------------------------------------------
 
-while (($#)); do
-  case "$1" in
-    --dark|-d) CHOICE="dark"; shift ;;
-    --light|-l) CHOICE="light"; shift ;;
-    --both|-b) CHOICE="both"; shift ;;
-    --dest)
-      (($# >= 2)) || fail "missing directory after --dest"
-      DEST="$2"
-      shift 2
-      ;;
-    --uninstall|-u)
-      (($# >= 2)) || fail "use --uninstall dark|light|both"
-      UNINSTALL=1
-      CHOICE="$2"
-      shift 2
-      ;;
-    --libadwaita|-l4)
-      LIBADWAITA=1
-      shift
-      ;;
-    --unlink-libadwaita)
-      UNLINK_LIBADWAITA=1
-      shift
-      ;;
-    --help|-h) usage; exit 0 ;;
-    *) fail "unknown option: $1 (use --help)" ;;
-  esac
-done
+ask_choice() {
+    local prompt="$1"
+    local -n result="$2"
+    shift 2
 
-CONFIG_DIR="${HOME}/.config"
-GTK4_CONFIG="${CONFIG_DIR}/gtk-4.0"
+    local options=("$@")
+    local answer
+    local i
 
-unlink_libadwaita() {
-  local backup
-  if [[ -L "$GTK4_CONFIG" ]]; then
-    local current_target
-    current_target="$(readlink -f -- "$GTK4_CONFIG" 2>/dev/null || true)"
-    case "$current_target" in
-      */Agata-Dark/gtk-4.0|*/Agata-Light/gtk-4.0)
-        rm -- "$GTK4_CONFIG"
-        printf 'Removed Agata GTK 4 link: %s\n' "$GTK4_CONFIG"
-        ;;
-      *)
-        printf 'The GTK 4 config link does not point to Agata; leaving it untouched.\n'
-        return 0
-        ;;
-    esac
-  elif [[ -e "$GTK4_CONFIG" ]]; then
-    printf 'No Agata symlink found at %s; leaving it untouched.\n' "$GTK4_CONFIG"
-    return 0
-  else
-    printf 'No GTK 4 config link found.\n'
-  fi
+    printf '\n%s\n\n' "$prompt"
 
-  backup="$(find "$CONFIG_DIR" -maxdepth 1 -mindepth 1 -name 'gtk-4.0.backup-*' -printf '%f\n' 2>/dev/null | sort | tail -n 1 || true)"
-  if [[ -n "$backup" && ! -e "$GTK4_CONFIG" && ! -L "$GTK4_CONFIG" ]]; then
-    mv -- "${CONFIG_DIR}/${backup}" "$GTK4_CONFIG"
-    printf 'Restored backup: %s\n' "$GTK4_CONFIG"
-  fi
+    for i in "${!options[@]}"; do
+        printf '  %s) %s\n' "$((i + 1))" "${options[$i]}"
+    done
+
+    printf '\n'
+    read -r -p "Choose [1-${#options[@]}]: " answer
+
+    [[ "$answer" =~ ^[0-9]+$ ]] || fail "invalid selection"
+
+    ((answer >= 1 && answer <= ${#options[@]})) ||
+        fail "invalid selection"
+
+    result="${options[$((answer - 1))]}"
 }
 
-if ((UNLINK_LIBADWAITA)); then
-  unlink_libadwaita
-  exit 0
-fi
+interactive_menu() {
+    local selection
 
-if [[ -z "$CHOICE" ]]; then
-  printf '%s\n' \
-    "Agata — GTK Theme Installer" \
-    "" \
-    "  1) Install Agata-Dark" \
-    "  2) Install Agata-Light" \
-    "  3) Install both variants" \
-    "  4) Install Agata-Dark + libadwaita integration" \
-    "  5) Install Agata-Light + libadwaita integration" \
-    "  6) Install both + choose libadwaita variant" \
-    "  7) Remove Agata-Dark" \
-    "  8) Remove Agata-Light" \
-    "  9) Remove libadwaita integration" \
-    " 10) Exit"
-  read -r -p "Choose [1-10]: " answer
-  case "$answer" in
-    1) CHOICE="dark" ;;
-    2) CHOICE="light" ;;
-    3) CHOICE="both" ;;
-    4) CHOICE="dark"; LIBADWAITA=1 ;;
-    5) CHOICE="light"; LIBADWAITA=1 ;;
-    6) CHOICE="both"; LIBADWAITA=1 ;;
-    7) CHOICE="dark"; UNINSTALL=1 ;;
-    8) CHOICE="light"; UNINSTALL=1 ;;
-    9) unlink_libadwaita; exit 0 ;;
-    10) printf 'No changes made.\n'; exit 0 ;;
-    *) printf 'Invalid choice. No changes made.\n'; exit 1 ;;
-  esac
-fi
+    printf '\n'
+    printf '%s\n' "================================"
+    printf '%s\n' "      Agata GTK Theme Installer"
+    printf '%s\n' "================================"
+    printf '\n'
+    printf '%s\n' \
+        "  1) Install or update themes" \
+        "  2) Remove themes" \
+        "  3) Remove libadwaita integration" \
+        "  0) Exit"
 
-case "$CHOICE" in
-  dark) THEMES=("Agata-Dark") ;;
-  light) THEMES=("Agata-Light") ;;
-  both) THEMES=("Agata-Dark" "Agata-Light") ;;
-  *) fail "invalid variant: $CHOICE (use dark, light, or both)" ;;
-esac
+    printf '\n'
+    read -r -p "Choose [0-3]: " selection
 
-if ((LIBADWAITA && UNINSTALL)); then
-  fail "--libadwaita cannot be combined with --uninstall; use --unlink-libadwaita separately"
-fi
-
-if ((UNINSTALL)); then
-  for theme in "${THEMES[@]}"; do
-    target="${DEST%/}/${theme}"
-    if [[ -d "$target" || -L "$target" ]]; then
-      rm -rf -- "$target"
-      printf 'Removed: %s\n' "$target"
-    else
-      printf 'Not found, skipping: %s\n' "$target"
-    fi
-  done
-  exit 0
-fi
-
-[[ -d "$THEMES_DIR" ]] || fail "themes directory not found: $THEMES_DIR"
-[[ -n "$DEST" && "$DEST" != "/" ]] || fail "unsafe destination directory: $DEST"
-
-mkdir -p -- "$DEST"
-
-for theme in "${THEMES[@]}"; do
-  source_dir="${THEMES_DIR}/${theme}"
-  target_dir="${DEST%/}/${theme}"
-  [[ -d "$source_dir" ]] || fail "theme not found in repository: $source_dir"
-  [[ -f "${source_dir}/index.theme" ]] || fail "missing index.theme in $source_dir"
-  [[ -f "${source_dir}/gtk-3.0/gtk.css" ]] || fail "missing GTK 3 stylesheet in $source_dir"
-  [[ -f "${source_dir}/gtk-4.0/gtk.css" ]] || fail "missing GTK 4 stylesheet in $source_dir"
-
-  temp_dir="${DEST%/}/.${theme}.install.$$"
-  rm -rf -- "$temp_dir"
-  cp -a -- "$source_dir" "$temp_dir"
-  rm -rf -- "$target_dir"
-  mv -- "$temp_dir" "$target_dir"
-  printf 'Installed: %s\n' "$target_dir"
-done
-
-if ((LIBADWAITA)); then
-  if [[ "$CHOICE" == "both" ]]; then
-    printf '\nBoth variants were installed. Which GTK 4 stylesheet should be linked?\n'
-    printf '  1) Agata-Dark\n  2) Agata-Light\n'
-    read -r -p "Choose [1-2]: " link_choice
-    case "$link_choice" in
-      1) LINK_THEME="Agata-Dark" ;;
-      2) LINK_THEME="Agata-Light" ;;
-      *) fail "invalid choice; themes were installed, but no GTK 4 link was created" ;;
-    esac
-  else
-    LINK_THEME="${THEMES[0]}"
-  fi
-
-  LINK_SOURCE="${DEST%/}/${LINK_THEME}/gtk-4.0"
-  [[ -d "$LINK_SOURCE" ]] || fail "GTK 4 theme directory not found: $LINK_SOURCE"
-  mkdir -p -- "$CONFIG_DIR"
-
-  if [[ -e "$GTK4_CONFIG" || -L "$GTK4_CONFIG" ]]; then
-    if [[ -L "$GTK4_CONFIG" ]]; then
-      old_target="$(readlink -f -- "$GTK4_CONFIG" 2>/dev/null || true)"
-      case "$old_target" in
-        */Agata-Dark/gtk-4.0|*/Agata-Light/gtk-4.0)
-          rm -- "$GTK4_CONFIG"
-          ;;
+    case "$selection" in
+        1) ACTION="install" ;;
+        2) ACTION="remove" ;;
+        3) ACTION="remove-libadwaita" ;;
+        0)
+            printf '\nNo changes made.\n'
+            exit 0
+            ;;
         *)
-          backup="${GTK4_CONFIG}.backup-$(date +%Y%m%d-%H%M%S)"
-          mv -- "$GTK4_CONFIG" "$backup"
-          printf 'Existing GTK 4 symlink backed up to: %s\n' "$backup"
-          ;;
-      esac
-    else
-      backup="${GTK4_CONFIG}.backup-$(date +%Y%m%d-%H%M%S)"
-      mv -- "$GTK4_CONFIG" "$backup"
-      printf 'Existing GTK 4 configuration backed up to: %s\n' "$backup"
-    fi
-  fi
+            fail "invalid selection"
+            ;;
+    esac
 
-  ln -s -- "$LINK_SOURCE" "$GTK4_CONFIG"
-  printf 'Linked %s -> %s\n' "$GTK4_CONFIG" "$LINK_SOURCE"
-  printf 'Note: libadwaita applications may partially or fully ignore third-party GTK styling.\n'
+    [[ "$ACTION" == "remove-libadwaita" ]] && return
+
+    if [[ "$ACTION" == "install" ]]; then
+        ask_choice "Which Agata edition do you want?" EDITION \
+            "nord" "gruvbox"
+
+        ask_choice "Which variant do you want to install?" VARIANT \
+            "dark" "light" "both"
+
+        printf '\n'
+        read -r -p "Enable GTK 4 / libadwaita integration? [y/N]: " answer
+
+        case "${answer,,}" in
+            y|yes) LIBADWAITA=1 ;;
+            *) LIBADWAITA=0 ;;
+        esac
+    else
+        ask_choice "Which edition do you want to remove?" EDITION \
+            "nord" "gruvbox" "all"
+
+        if [[ "$EDITION" != "all" ]]; then
+            ask_choice "Which variant do you want to remove?" VARIANT \
+                "dark" "light" "both"
+        fi
+    fi
+}
+
+# --------------------------------------------------
+# Build theme list
+# --------------------------------------------------
+
+build_theme_list() {
+    local editions=()
+    local variants=()
+
+    THEMES=()
+
+    if [[ "$EDITION" == "all" ]]; then
+        editions=("nord" "gruvbox")
+    else
+        editions=("$EDITION")
+    fi
+
+    case "$VARIANT" in
+        dark) variants=("Dark") ;;
+        light) variants=("Light") ;;
+        both) variants=("Dark" "Light") ;;
+        *) fail "invalid variant: $VARIANT" ;;
+    esac
+
+    local edition
+    local variant
+
+    for edition in "${editions[@]}"; do
+        for variant in "${variants[@]}"; do
+            THEMES+=("$(theme_name "$edition" "$variant")")
+        done
+    done
+}
+
+# --------------------------------------------------
+# GTK 4 / libadwaita integration
+# --------------------------------------------------
+
+unlink_libadwaita() {
+    local current_target=""
+    local backup=""
+
+    if [[ -L "$GTK4_CONFIG" ]]; then
+        current_target="$(readlink -f -- "$GTK4_CONFIG" 2>/dev/null || true)"
+
+        if is_agata_theme "$current_target"; then
+            rm -- "$GTK4_CONFIG"
+            printf 'Removed Agata GTK 4 link.\n'
+        else
+            printf 'GTK 4 link does not point to Agata. Leaving it untouched.\n'
+            return 0
+        fi
+    elif [[ -e "$GTK4_CONFIG" ]]; then
+        printf 'GTK 4 configuration is not an Agata link. Leaving it untouched.\n'
+        return 0
+    else
+        printf 'No GTK 4 configuration link found.\n'
+    fi
+
+    # Restore the newest available backup.
+    shopt -s nullglob
+    local backups=("${GTK4_CONFIG}".backup-*)
+    shopt -u nullglob
+
+    if ((${#backups[@]})); then
+        backup="${backups[-1]}"
+
+        if [[ ! -e "$GTK4_CONFIG" && ! -L "$GTK4_CONFIG" ]]; then
+            mv -- "$backup" "$GTK4_CONFIG"
+            printf 'Restored backup: %s\n' "$GTK4_CONFIG"
+        fi
+    fi
+}
+
+choose_libadwaita_theme() {
+    if ((${#THEMES[@]} == 1)); then
+        LINK_THEME="${THEMES[0]}"
+        return
+    fi
+
+    printf '\nWhich installed variant should GTK 4 use?\n\n'
+
+    local i
+    for i in "${!THEMES[@]}"; do
+        printf '  %s) %s\n' "$((i + 1))" "${THEMES[$i]}"
+    done
+
+    local answer
+    read -r -p "Choose [1-${#THEMES[@]}]: " answer
+
+    [[ "$answer" =~ ^[0-9]+$ ]] || fail "invalid selection"
+    ((answer >= 1 && answer <= ${#THEMES[@]})) ||
+        fail "invalid selection"
+
+    LINK_THEME="${THEMES[$((answer - 1))]}"
+}
+
+link_libadwaita() {
+    local source
+    local old_target
+    local backup
+
+    choose_libadwaita_theme
+
+    source="${DEST%/}/${LINK_THEME}/gtk-4.0"
+
+    [[ -d "$source" ]] ||
+        fail "GTK 4 theme directory not found: $source"
+
+    mkdir -p -- "$CONFIG_DIR"
+
+    if [[ -e "$GTK4_CONFIG" || -L "$GTK4_CONFIG" ]]; then
+        if [[ -L "$GTK4_CONFIG" ]]; then
+            old_target="$(readlink -f -- "$GTK4_CONFIG" 2>/dev/null || true)"
+
+            if is_agata_theme "$old_target"; then
+                rm -- "$GTK4_CONFIG"
+            else
+                backup="${GTK4_CONFIG}.backup-$(date +%Y%m%d-%H%M%S)"
+                mv -- "$GTK4_CONFIG" "$backup"
+                printf 'Existing GTK 4 link backed up.\n'
+            fi
+        else
+            backup="${GTK4_CONFIG}.backup-$(date +%Y%m%d-%H%M%S)"
+            mv -- "$GTK4_CONFIG" "$backup"
+            printf 'Existing GTK 4 configuration backed up.\n'
+        fi
+    fi
+
+    ln -s -- "$source" "$GTK4_CONFIG"
+
+    printf '\nGTK 4 integration enabled.\n'
+    printf 'Linked: %s -> %s\n' "$GTK4_CONFIG" "$source"
+    printf '\n'
+    printf '%s\n' \
+        "Note: Some libadwaita applications may ignore third-party styling."
+}
+
+# --------------------------------------------------
+# Installation
+# --------------------------------------------------
+
+install_themes() {
+    local theme
+    local source
+    local target
+    local temp
+
+    [[ -d "$THEMES_DIR" ]] ||
+        fail "themes directory not found: $THEMES_DIR"
+
+    [[ -n "$DEST" && "$DEST" != "/" ]] ||
+        fail "unsafe destination directory: $DEST"
+
+    mkdir -p -- "$DEST"
+
+    for theme in "${THEMES[@]}"; do
+        source="${THEMES_DIR}/${theme}"
+        target="${DEST%/}/${theme}"
+        temp="${DEST%/}/.${theme}.install.$$"
+
+        [[ -d "$source" ]] ||
+            fail "theme not found: $source"
+
+        [[ -f "${source}/index.theme" ]] ||
+            fail "missing index.theme in $source"
+
+        [[ -f "${source}/gtk-3.0/gtk.css" ]] ||
+            fail "missing GTK 3 stylesheet in $source"
+
+        [[ -f "${source}/gtk-4.0/gtk.css" ]] ||
+            fail "missing GTK 4 stylesheet in $source"
+
+        rm -rf -- "$temp"
+        cp -a -- "$source" "$temp"
+
+        rm -rf -- "$target"
+        mv -- "$temp" "$target"
+
+        printf 'Installed: %s\n' "$target"
+    done
+
+    if ((LIBADWAITA)); then
+        link_libadwaita
+    fi
+
+    printf '\nInstallation completed successfully.\n'
+    printf 'If necessary, log out and back in to apply the theme.\n'
+}
+
+# --------------------------------------------------
+# Removal
+# --------------------------------------------------
+
+remove_themes() {
+    local theme
+    local target
+
+    for theme in "${THEMES[@]}"; do
+        target="${DEST%/}/${theme}"
+
+        if [[ -d "$target" || -L "$target" ]]; then
+            rm -rf -- "$target"
+            printf 'Removed: %s\n' "$target"
+        else
+            printf 'Not found, skipping: %s\n' "$target"
+        fi
+    done
+
+    printf '\nRemoval completed.\n'
+}
+
+# --------------------------------------------------
+# Argument parsing
+# --------------------------------------------------
+
+if (($# == 0)); then
+    interactive_menu
+else
+    ACTION="$1"
+    shift
+
+    case "$ACTION" in
+        install|remove)
+            (($# >= 1)) || fail "missing edition"
+
+            EDITION="$1"
+            shift
+
+            if [[ "$EDITION" != "all" ]]; then
+                (($# >= 1)) || fail "missing variant"
+                VARIANT="$1"
+                shift
+            fi
+
+            while (($#)); do
+                case "$1" in
+                    --libadwaita)
+                        LIBADWAITA=1
+                        shift
+                        ;;
+                    --dest)
+                        (($# >= 2)) || fail "missing directory after --dest"
+                        DEST="$2"
+                        shift 2
+                        ;;
+                    *)
+                        fail "unknown option: $1"
+                        ;;
+                esac
+            done
+
+            [[ "$EDITION" == "nord" ||
+               "$EDITION" == "gruvbox" ||
+               "$EDITION" == "all" ]] ||
+                fail "edition must be nord, gruvbox or all"
+
+            if [[ "$ACTION" == "install" && "$EDITION" == "all" ]]; then
+                fail "install all is not supported; choose nord or gruvbox"
+            fi
+
+            if [[ "$EDITION" != "all" ]]; then
+                [[ "$VARIANT" == "dark" ||
+                   "$VARIANT" == "light" ||
+                   "$VARIANT" == "both" ]] ||
+                    fail "variant must be dark, light or both"
+            fi
+
+            if [[ "$ACTION" == "remove" && "$LIBADWAITA" == 1 ]]; then
+                fail "--libadwaita cannot be used with remove"
+            fi
+            ;;
+        remove-libadwaita)
+            ;;
+        --help|-h)
+            usage
+            exit 0
+            ;;
+        *)
+            fail "unknown command: $ACTION (use --help)"
+            ;;
+    esac
 fi
 
-printf '\nDone. If the theme does not appear immediately, log out and back in.\n'
+# --------------------------------------------------
+# Execute
+# --------------------------------------------------
+
+case "$ACTION" in
+    install)
+        build_theme_list
+        install_themes
+        ;;
+    remove)
+        if [[ "$EDITION" == "all" ]]; then
+            THEMES=(
+                "Agata-Nord-Dark"
+                "Agata-Nord-Light"
+                "Agata-Gruvbox-Dark"
+                "Agata-Gruvbox-Light"
+            )
+        else
+            build_theme_list
+        fi
+        remove_themes
+        ;;
+    remove-libadwaita)
+        unlink_libadwaita
+        ;;
+    *)
+        fail "invalid action"
+        ;;
+esac

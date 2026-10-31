@@ -1,12 +1,12 @@
 # Agata GTK Theme
-v1.0.3
+v1.0.4
 
 Agata is a modern GTK theme inspired by the **Nord color palette**, featuring muted blue accents, cool blue-gray surfaces, and carefully balanced contrast.
 
 Designed to provide a clean, elegant, and consistent desktop experience, Agata is available in two variants:
 
-- **Agata-Dark** — a dark interface with deep blue-gray surfaces and soft blue highlights.
-- **Agata-Light** — a light interface with subtle gray-blue tones and balanced contrast.
+- **Agata-Nord-Dark** — a dark interface with deep blue-gray surfaces and soft blue highlights.
+- **Agata-Nord-Light** — a light interface with subtle gray-blue tones and balanced contrast.
 
 ### Features
 
@@ -27,7 +27,7 @@ chmod +x install.sh
 ./install.sh
 ```
 
-The installer provides an interactive menu to install Agata-Dark, Agata-Light, or both variants.
+The installer provides an interactive menu to install Agata-Nord-Dark, Agata-Nord-Light, or both variants.
 
 Themes are installed locally for the current user in:
 
@@ -88,3 +88,13 @@ Agata is designed for Linux desktop environments that support GTK themes, includ
 Agata is based on the [Jasper GTK theme](https://github.com/vinceliuice/Jasper-gtk-theme).
 
 Please refer to the repository for attribution and licensing information.
+
+
+## Gruvbox variants
+
+This release adds two additional themes while keeping the original Nord variants unchanged:
+
+- `Agata-Gruvbox-Dark`
+- `Agata-Gruvbox-Light`
+
+Install from the interactive menu or run `./install.sh --gruvbox-dark`, `./install.sh --gruvbox-light`, or `./install.sh --gruvbox-both`. Add `--libadwaita` to any of these options to link the selected GTK 4 theme.
