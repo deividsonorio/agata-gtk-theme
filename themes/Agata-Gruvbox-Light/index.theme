@@ -1,13 +1,13 @@
 [Desktop Entry]
 Type=X-GNOME-Metatheme
 Name=Agata-Gruvbox-Light
-Comment=Light variant of Agata using Nord blue accents
+Comment=Light variant of Agata using Gruvbox accents
 Author=Deivid Schlosser Onorio
 Encoding=UTF-8
 
 [X-GNOME-Metatheme]
-GtkTheme=Agata-Nord-Dark
-MetacityTheme=Agata-Nord-Dark
+GtkTheme=Agata-Gruvbox-Light
+MetacityTheme=Agata-Gruvbox-Light
 IconTheme=Adwaita
 CursorTheme=Adwaita
 ButtonLayout=:minimize,maximize,close

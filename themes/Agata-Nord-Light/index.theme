@@ -6,8 +6,8 @@ Author=Deivid Schlosser Onorio
 Encoding=UTF-8
 
 [X-GNOME-Metatheme]
-GtkTheme=Agata-Nord-Dark
-MetacityTheme=Agata-Nord-Dark
+GtkTheme=Agata-Nord-Light
+MetacityTheme=Agata-Nord-Light
 IconTheme=Adwaita
 CursorTheme=Adwaita
 ButtonLayout=:minimize,maximize,close
