@@ -2341,3 +2341,321 @@ StScrollBar StButton#vhandle:active, StScrollBar StButton#hhandle:active {
   background-color: rgba(0, 0, 0, 0);
   border-radius: 0px;
 }
+
+/* Agata Cinnamon Shell overrides — Linux Mint Cinnamon 22.x */
+#panel {
+  background-color: #1D2021;
+  color: #EBDBB2;
+  border-color: #1D2021;
+}
+#panel StLabel,
+#panel .applet-label,
+#panel .system-status-icon,
+#panel StIcon {
+  color: #EBDBB2;
+}
+#panel .applet-box,
+#panel .applet,
+#panel .panel-launcher {
+  color: #EBDBB2;
+}
+#panel .applet-box:hover,
+#panel .applet:hover {
+  background-color: #3C3836;
+}
+.menu .popup-sub-menu,
+.popup-menu .popup-sub-menu,
+.popup-combo-menu .popup-sub-menu {
+  background-color: #282828;
+  color: #EBDBB2;
+}
+.menu .popup-sub-menu StLabel,
+.popup-menu .popup-sub-menu StLabel,
+.popup-combo-menu .popup-sub-menu StLabel {
+  color: #EBDBB2;
+}
+.menu .popup-menu-item:focus,
+.popup-menu .popup-menu-item:focus,
+.popup-combo-menu .popup-menu-item:focus {
+  color: #EBDBB2;
+  background-color: #3C3836;
+}
+.menu .popup-menu-item:hover,
+.popup-menu .popup-menu-item:hover,
+.popup-combo-menu .popup-menu-item:hover {
+  color: #EBDBB2;
+  background-color: #3C3836;
+}
+
+
+/* Agata Cinnamon menu colors — color-only overrides; preserve original layout */
+.menu,
+.popup-menu,
+.popup-combo-menu,
+.menu .popup-menu-content,
+.popup-menu .popup-menu-content,
+.popup-combo-menu .popup-menu-content {
+  background-color: #282828;
+  color: #EBDBB2;
+}
+.menu StLabel,
+.popup-menu StLabel,
+.popup-combo-menu StLabel {
+  color: #EBDBB2;
+}
+.menu-favorites-box,
+.menu-places-box,
+.menu-categories-box,
+.menu-applications-inner-box,
+.menu-applications-outer-box {
+  color: #EBDBB2;
+}
+.menu-favorites-button,
+.menu-places-button,
+.menu-category-button,
+.menu-category-button-label,
+.menu-application-button,
+.menu-application-button-label,
+.menu-selected-app-title,
+.menu-selected-app-description {
+  color: #EBDBB2;
+}
+.menu-category-button-hover,
+.menu-category-button-selected,
+.menu-application-button-selected,
+.menu-application-button:highlighted {
+  background-color: #504945;
+  color: #EBDBB2;
+}
+.menu-category-button-greyed,
+.menu .popup-inactive-menu-item,
+.popup-menu .popup-inactive-menu-item {
+  color: #D5C4A1;
+}
+#menu-search-entry,
+.menu #menu-search-entry {
+  background-color: #1D2021;
+  color: #EBDBB2;
+  caret-color: #EBDBB2;
+  border-color: #D79921;
+}
+.menu-search-entry-icon,
+.menu-arrow,
+.popup-menu-arrow {
+  color: #EBDBB2;
+}
+
+
+/* Agata Cinnamon 6.4 menu palette — color-only rules based on Mint-X structure */
+.menu {
+  background-color: #282828;
+  color: #EBDBB2;
+}
+.menu StLabel,
+.menu StIcon {
+  color: #EBDBB2;
+}
+.menu-favorites-box,
+.menu-places-box,
+.menu-categories-box,
+.menu-applications-inner-box,
+.menu-applications-outer-box {
+  background-color: #282828;
+  color: #EBDBB2;
+}
+.menu-favorites-button,
+.menu-places-button,
+.menu-category-button,
+.menu-category-button-label,
+.menu-application-button,
+.menu-application-button-label,
+.menu-selected-app-title,
+.menu-selected-app-description {
+  color: #EBDBB2;
+}
+.menu-favorites-button:hover,
+.menu-places-button:hover,
+.menu-category-button-hover,
+.menu-category-button-selected,
+.menu-application-button-selected {
+  background-color: #504945;
+  color: #EBDBB2;
+}
+.menu-category-button-greyed,
+#menu-search-entry StLabel.hint-text {
+  color: #D5C4A1;
+}
+.menu StEntry,
+#menu-search-entry {
+  background-color: #1D2021;
+  color: #EBDBB2;
+  caret-color: #EBDBB2;
+  selection-background-color: #D79921;
+  selected-color: #EBDBB2;
+  border-color: #D79921;
+}
+.menu-search-entry-icon {
+  color: #EBDBB2;
+}
+
+
+/* Agata Cinnamon 6.6+ menu layout — geometry based on Mint-X-Aqua */
+.appmenu-background .popup-menu-content {
+  padding: 0;
+}
+.appmenu-main-box {
+  spacing: 10px;
+}
+.appmenu-right-box {
+  spacing: 5px;
+  padding: 10px 10px;
+}
+.appmenu-search-box {
+  spacing: 10px;
+}
+.appmenu-categories-applications-box {
+  spacing: 15px;
+  padding: 10px 10px;
+}
+.appmenu-categories-applications-box:top {
+  padding-top: 5px;
+}
+.appmenu-applications-box {
+  padding-right: 5px;
+}
+.appmenu-system-box {
+  spacing: 10px;
+}
+.appmenu-sidebar {
+  padding: 10px 0px;
+  spacing: 5px;
+  border: 1px solid;
+  border-radius: 4px 0 0 4px;
+  border-right-width: 1px;
+}
+.appmenu-application-button-label:ltr {
+  padding-left: 5px;
+}
+.appmenu-application-button-label:rtl {
+  padding-right: 5px;
+}
+.appmenu-application-button-description {
+  font-size: 0.9em;
+}
+.appmenu-application-button-description:ltr {
+  padding-left: 5px;
+}
+.appmenu-application-button-description:rtl {
+  padding-right: 5px;
+}
+.appmenu-sidebar-button {
+  padding: 4px 1em;
+}
+.appmenu-system-button {
+  padding: 8px;
+  border-radius: 9999px;
+}
+.appmenu-application-button {
+  padding: 7px;
+  max-width: 10px;
+}
+.appmenu-application-button:highlighted {
+  font-weight: bold;
+}
+.appmenu-application-button-selected {
+  padding: 7px;
+  border-radius: 4px;
+  max-width: 10px;
+}
+.appmenu-application-button-selected:highlighted {
+  font-weight: bold;
+}
+.appmenu-category-button {
+  padding: 7px;
+}
+.appmenu-category-button-greyed {
+  padding: 7px;
+  font-style: italic;
+}
+.appmenu-category-button-selected {
+  padding: 7px;
+  border-radius: 4px;
+}
+.appmenu-category-button-label:ltr {
+  padding-left: 5px;
+}
+.appmenu-category-button-label:rtl {
+  padding-right: 5px;
+}
+.appmenu-search-entry-icon {
+  icon-size: 1em;
+}
+
+
+/* Agata Cinnamon 6.6+ menu colors — palette-specific values */
+.appmenu-background,
+.appmenu-background .popup-menu-content {
+  background-color: #282828;
+  color: #EBDBB2;
+}
+.appmenu-sidebar {
+  background-color: #1D2021;
+  color: #EBDBB2;
+  border-color: #504945;
+}
+.appmenu-sidebar StLabel,
+.appmenu-sidebar StIcon {
+  color: #EBDBB2;
+}
+.appmenu-sidebar-button,
+.appmenu-sidebar-button StLabel,
+.appmenu-sidebar-button StIcon {
+  color: #EBDBB2;
+}
+.appmenu-sidebar-button:hover,
+.appmenu-sidebar-button:focus {
+  background-color: #504945;
+  color: #EBDBB2;
+}
+.appmenu-system-button {
+  color: #EBDBB2;
+}
+.appmenu-system-button-lock:hover,
+.appmenu-system-button-logout:hover {
+  background-color: #504945;
+  color: #EBDBB2;
+}
+.appmenu-system-button-shutdown:hover {
+  background-color: #C21616;
+  color: #FFFFFF;
+}
+.appmenu-category-button,
+.appmenu-category-button StLabel,
+.appmenu-application-button,
+.appmenu-application-button StLabel,
+.appmenu-application-button-label {
+  color: #EBDBB2;
+}
+.appmenu-category-button-selected,
+.appmenu-application-button-selected {
+  background-color: #504945;
+  color: #EBDBB2;
+}
+.appmenu-category-button-greyed,
+.appmenu-application-button-description {
+  color: #D5C4A1;
+}
+.appmenu-search-entry-icon {
+  color: #EBDBB2;
+}
+#appmenu-search-entry {
+  background-color: #1D2021;
+  color: #EBDBB2;
+  caret-color: #EBDBB2;
+  selection-background-color: #D79921;
+  selected-color: #EBDBB2;
+  border: 1px solid #D79921;
+}
+#appmenu-search-entry StLabel.hint-text {
+  color: #D5C4A1;
+}
