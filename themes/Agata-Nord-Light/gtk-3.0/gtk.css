@@ -8162,3 +8162,45 @@ window#whiskermenu-window.background {
   margin: 0;
   border: 1px solid #C8D0DC;
 }
+
+/* Agata XFCE / Xubuntu 26.10: opaque, square Whisker Menu surface */
+window#whiskermenu-window,
+window#whiskermenu-window.background,
+#whiskermenu-window,
+#whiskermenu-window.background {
+  background-color: #E5E9F0;
+  color: #2E3440;
+  border: 1px solid #C5CCD8;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  background-clip: border-box;
+}
+window#whiskermenu-window > frame,
+window#whiskermenu-window > frame.background,
+window#whiskermenu-window > frame > border,
+#whiskermenu-window > frame,
+#whiskermenu-window > frame > border {
+  background-color: #E5E9F0;
+  color: #2E3440;
+  border: 0;
+  border-radius: 0;
+  outline: 0;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+window#whiskermenu-window decoration,
+#whiskermenu-window decoration {
+  background-color: #E5E9F0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+window#whiskermenu-window entry.search,
+window#whiskermenu-window entry.search:focus {
+  background-color: #E5E9F0;
+  color: #2E3440;
+  border-color: #C5CCD8;
+}

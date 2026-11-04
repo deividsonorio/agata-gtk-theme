@@ -1,6 +1,6 @@
 # Agata GTK Theme
 
-**v1.0.4**
+**v1.0.5**
 
 Agata is a modern GTK theme featuring two carefully crafted color editions: **Nord** and **Gruvbox**. It combines elegant surfaces, balanced contrast, and distinctive color accents to provide a clean and consistent desktop experience.
 
@@ -18,6 +18,19 @@ Both editions are available in Dark and Light variants.
 - XFCE panel and menu styling.
 - Optional GTK 4/libadwaita application integration.
 - Ready-to-use theme files — no compilation required.
+
+## Tests
+
+The themes were tested in these distros:
+
+- Zorin OS 18.1
+- Linux Mint Cinnamon 22.3
+- Linux Mint xfce 22.3
+- Xubuntu 26.10
+- Fedora 44 xfce
+- Fedora 45 xfce
+- Fedora 44 Gnome
+- Fedora 45 Gnome
 
 ## Installation
 
