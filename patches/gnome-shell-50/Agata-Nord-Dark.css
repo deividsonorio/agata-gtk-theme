@@ -1,0 +1,184 @@
+/* Agata — GNOME Shell 50+ compatibility layer.
+ * Keep this block at the end so it wins over older shell rules.
+ * The Yaru reference uses the same GNOME 50 quick-toggle structure.
+ */
+
+/* Quick Settings */
+.quick-settings {
+  padding: 18px !important;
+  border-radius: 14px !important;
+  background-color: #2E3440 !important;
+  color: #ECEFF4 !important;
+}
+.quick-settings-grid {
+  spacing-rows: 12px;
+  spacing-columns: 12px;
+}
+.quick-toggle, /* GNOME 50+ quick toggles.
+ * Keep normal quick toggles as single rounded pills.
+ * The shell itself decides which controls expose a submenu.
+ */
+.quick-toggle-has-menu .quick-toggle {
+  min-width: auto;
+  max-width: none;
+}
+
+/* The Ubuntu/Yaru power-mode tile is presented as one rounded button.
+ * GNOME still lets the main tile cycle power profiles; the submenu
+ * control is intentionally not drawn by Agata.
+ */
+.quick-toggle-has-menu .quick-toggle.power-item {
+  border-radius: 999px !important;
+}
+.quick-toggle-has-menu .quick-toggle.power-item ~ .quick-toggle-menu-button {
+  display: none !important;
+}
+
+/* GNOME Shell dock: compact spacing and no artificial separator. */
+#dash .dash-separator {
+  width: 0 !important;
+  min-width: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  background-color: transparent !important;
+}
+#dash .dash-separator, #dash .dash-background {
+  margin-bottom: 0 !important;
+}
+#dashtodockContainer.left #dash, #dashtodockContainer.right #dash {
+  padding: 6px 0 !important;
+}
+#dashtodockContainer.left #dash .dash-item-container .show-apps,
+#dashtodockContainer.left #dash .dash-item-container .overview-tile,
+#dashtodockContainer.left #dash .dash-item-container .grid-search-result,
+#dashtodockContainer.right #dash .dash-item-container .show-apps,
+#dashtodockContainer.right #dash .dash-item-container .overview-tile,
+#dashtodockContainer.right #dash .dash-item-container .grid-search-result {
+  margin: 0 1px !important;
+  padding-bottom: 4px !important;
+}
+#dashtodockContainer.left #dash .dash-item-container .show-apps .overview-icon,
+#dashtodockContainer.left #dash .dash-item-container .overview-tile .overview-icon,
+#dashtodockContainer.left #dash .dash-item-container .grid-search-result .overview-icon,
+#dashtodockContainer.right #dash .dash-item-container .show-apps .overview-icon,
+#dashtodockContainer.right #dash .dash-item-container .overview-tile .overview-icon,
+#dashtodockContainer.right #dash .dash-item-container .grid-search-result .overview-icon {
+  padding: 4px !important;
+}
+
+
+/* Final GNOME 50+ geometry fixes.
+ * These rules are deliberately limited to the actual Dash-to-Dock
+ * containers so the regular GNOME Shell theme remains untouched.
+ */
+
+/* Keep the outer edge of the dock flush with the container.
+ * Dash-to-Dock adds position-dependent padding/margins; the previous
+ * patch left a visible strip at the outer edge on vertical and bottom docks.
+ */
+#dashtodockContainer.left #dash,
+#dashtodockContainer.right #dash,
+#dashtodockContainer.top #dash,
+#dashtodockContainer.bottom #dash {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#dashtodockContainer.left #dash .dash-background,
+#dashtodockContainer.right #dash .dash-background,
+#dashtodockContainer.top #dash .dash-background,
+#dashtodockContainer.bottom #dash .dash-background {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#dashtodockContainer.left #dashtodockDashContainer,
+#dashtodockContainer.right #dashtodockDashContainer,
+#dashtodockContainer.top #dashtodockDashContainer,
+#dashtodockContainer.bottom #dashtodockDashContainer {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#dashtodockContainer.left #dashtodockDashScrollview,
+#dashtodockContainer.right #dashtodockDashScrollview,
+#dashtodockContainer.top #dashtodockDashScrollview,
+#dashtodockContainer.bottom #dashtodockDashScrollview {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* GNOME 50+ quick-toggle geometry — Yaru/Adwaita structure.
+ *
+ * GNOME Shell 50 uses .quick-toggle-has-menu for split controls.
+ * Its children are .quick-toggle and .quick-toggle-menu-button.
+ * Do not use the old .quick-menu-toggle/.quick-toggle-arrow selectors.
+ */
+
+/* Standalone toggles, such as "Modo de energia", remain fully rounded. */
+.quick-toggle {
+  border-radius: 10px !important;
+}
+
+/* Split controls such as "Cabeada": the main toggle and menu button
+ * form one continuous rounded control. */
+.quick-toggle-has-menu {
+  border-radius: 10px !important;
+}
+
+.quick-toggle-has-menu .quick-toggle {
+  min-width: auto !important;
+  max-width: none !important;
+}
+
+.quick-toggle-has-menu .quick-toggle:ltr {
+  border-radius: 10px 0 0 10px !important;
+  padding-right: 9px !important;
+}
+
+.quick-toggle-has-menu .quick-toggle:rtl {
+  border-radius: 0 10px 10px 0 !important;
+  padding-left: 9px !important;
+}
+
+.quick-toggle-has-menu .quick-toggle:ltr:last-child,
+.quick-toggle-has-menu .quick-toggle:rtl:last-child {
+  border-radius: 10px !important;
+}
+
+/* The real GNOME 50 menu-button, not the obsolete arrow selector. */
+.quick-toggle-has-menu .quick-toggle-menu-button {
+  padding: 6px 10.5px !important;
+  border: none !important;
+  background-color: rgba(46, 52, 64, 0.05) !important;
+}
+
+.quick-toggle-has-menu .quick-toggle-menu-button:ltr {
+  border-radius: 0 10px 10px 0 !important;
+  margin-left: 0 !important;
+}
+
+.quick-toggle-has-menu .quick-toggle-menu-button:rtl {
+  border-radius: 10px 0 0 10px !important;
+  margin-right: 0 !important;
+}
+
+.quick-toggle-has-menu .quick-toggle-menu-button:hover {
+  background-color: rgba(46, 52, 64, 0.12) !important;
+}
+
+.quick-toggle-has-menu .quick-toggle-menu-button:active {
+  background-color: rgba(46, 52, 64, 0.15) !important;
+}
+
+.quick-toggle-has-menu:checked .quick-toggle-menu-button,
+.quick-toggle-has-menu .quick-toggle-menu-button:checked {
+  background-color: #88C0D0 !important;
+  color: #ECEFF4 !important;
+}
+
+.quick-toggle-has-menu .quick-toggle-separator {
+  width: 1px !important;
+  min-width: 1px !important;
+  background-color: transparent !important;
+}

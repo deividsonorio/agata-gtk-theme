@@ -8191,3 +8191,36 @@ window#whiskermenu-window entry.search:focus {
   color: #EBDBB2;
   border-color: #504945;
 }
+
+
+/* Agata Ubuntu 26.04 GTK geometry compatibility. */
+entry, spinbutton:not(.vertical) {
+  min-height: 0;
+}
+entry:not(.flat), spinbutton:not(.vertical):not(.flat) {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+button {
+  min-height: 0;
+}
+/* Keep dialog buttons filled by the current Agata surface/accent palette. */
+.dialog-action-area button,
+.dialog-action-area .button,
+window.dialog button {
+  background-color: #3C3836 !important;
+  color: #EBDBB2 !important;
+  border-color: #504945 !important;
+}
+.dialog-action-area button:hover,
+.dialog-action-area .button:hover,
+window.dialog button:hover {
+  background-color: #504945 !important;
+  color: #EBDBB2 !important;
+}
+.dialog-action-area button:active,
+.dialog-action-area .button:active,
+window.dialog button:active {
+  background-color: #D79921 !important;
+  color: #282828 !important;
+}

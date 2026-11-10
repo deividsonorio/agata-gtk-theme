@@ -416,6 +416,7 @@ StWidget.focused .app-well-app-running-dot {
   border-radius: 0 0 0 52px;
 }
 
+
 /* Dash */
 #dash .empty-dash-drop-target {
   width: 32px;
@@ -4326,4 +4327,18 @@ StWidget.focused .app-grid-running-dot {
 
 .openweather-sunrise-icon, .openweather-sunset-icon, .openweather-build-icon {
   color: rgba(255, 255, 255, 0.7);
+}
+
+/* Agata Show Applications icon — Ubuntu/Yaru dock */
+.show-apps .show-apps-icon {
+  background-image: url("assets/view-app-grid.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-color: transparent !important;
+  color: transparent !important;
+}
+
+.show-apps .show-apps-icon > * {
+  opacity: 0 !important;
 }

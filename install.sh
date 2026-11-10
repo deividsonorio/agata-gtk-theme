@@ -338,6 +338,60 @@ link_libadwaita() {
         "Note: Some libadwaita applications may ignore third-party styling."
 }
 
+
+# --------------------------------------------------
+# GNOME Shell 50+ compatibility
+# --------------------------------------------------
+
+detect_gnome_shell_version() {
+    local version
+
+    AGATA_GNOME_SHELL_MAJOR=""
+
+    if ! command -v gnome-shell >/dev/null 2>&1; then
+        printf 'GNOME Shell: not detected; GNOME 50+ patch will not be applied.\n'
+        export AGATA_GNOME_SHELL_MAJOR=""
+        return 0
+    fi
+
+    version="$(gnome-shell --version 2>/dev/null || true)"
+    AGATA_GNOME_SHELL_MAJOR="$(printf '%s\n' "$version" | sed -nE 's/.*GNOME Shell[[:space:]]+([0-9]+).*/\1/p')"
+
+    if [[ -n "$AGATA_GNOME_SHELL_MAJOR" ]]; then
+        printf 'GNOME Shell detected: %s\n' "$AGATA_GNOME_SHELL_MAJOR"
+    else
+        printf 'GNOME Shell version could not be detected; GNOME 50+ patch will not be applied.\n'
+    fi
+
+    export AGATA_GNOME_SHELL_MAJOR
+}
+
+apply_gnome_shell_50_patch() {
+    local theme_dir="$1"
+    local theme_name
+    local shell_css="${theme_dir}/gnome-shell/gnome-shell.css"
+    local patch_file
+
+    theme_name="$(basename "$theme_dir")"
+    patch_file="${REPO_DIR}/patches/gnome-shell-50/${theme_name}.css"
+
+    if [[ -n "$AGATA_GNOME_SHELL_MAJOR" &&
+          "$AGATA_GNOME_SHELL_MAJOR" -ge 50 &&
+          -f "$shell_css" &&
+          -f "$patch_file" ]]; then
+        {
+            printf '\n\n'
+            cat "$patch_file"
+        } >> "$shell_css"
+
+        printf 'Applied GNOME Shell 50+ compatibility patch: %s\n' "$theme_name"
+    elif [[ -n "$AGATA_GNOME_SHELL_MAJOR" &&
+            "$AGATA_GNOME_SHELL_MAJOR" -lt 50 ]]; then
+        printf 'GNOME Shell %s: keeping standard Agata shell styling (no GNOME 50+ patch).\n' \
+            "$AGATA_GNOME_SHELL_MAJOR"
+    fi
+}
+
 # --------------------------------------------------
 # Installation
 # --------------------------------------------------
@@ -378,6 +432,8 @@ install_themes() {
 
         rm -rf -- "$target"
         mv -- "$temp" "$target"
+
+        apply_gnome_shell_50_patch "$target"
 
         printf 'Installed: %s\n' "$target"
     done
@@ -483,6 +539,8 @@ else
             ;;
     esac
 fi
+
+detect_gnome_shell_version
 
 # --------------------------------------------------
 # Execute
