@@ -1,0 +1,309 @@
+/* GNOME 48 — complete Quick Settings implementation based on the Agata v1.0.6 base, with GNOME 48 split-toggle selectors. */
+.quick-settings { padding: 12px !important; border-radius: 20px !important; margin-top: 4px !important; }
+
+.quick-settings .icon-button, .quick-settings .background-app-item .close-button, .background-app-item .quick-settings .close-button, .quick-settings .message .message-header .message-expand-button, .message .message-header .quick-settings .message-expand-button,
+.quick-settings .message .message-header .message-close-button,
+.message .message-header .quick-settings .message-close-button, .quick-settings .button {
+  padding: 10.5px;
+}
+
+.quick-settings .icon-button > StIcon, .quick-settings .background-app-item .close-button > StIcon, .background-app-item .quick-settings .close-button > StIcon, .quick-settings .message .message-header .message-expand-button > StIcon, .message .message-header .quick-settings .message-expand-button > StIcon,
+.quick-settings .message .message-header .message-close-button > StIcon,
+.message .message-header .quick-settings .message-close-button > StIcon, .quick-settings .button > StIcon {
+  icon-size: 16px;
+}
+
+.quick-settings-grid { spacing-rows: 8px; spacing-columns: 8px; }
+
+.quick-toggle, .quick-toggle-has-menu {
+  border-radius: 10px;
+  min-width: 12em;
+  max-width: 12em;
+  min-height: 40px;
+  border: none;
+}
+
+.quick-toggle {
+  background-color: rgba(46, 52, 64, 0.05) !important;
+  /* Move padding into the box; this is to allow menu arrows
+     to extend to the border */
+}
+
+.quick-toggle:hover {
+  background-color: rgba(46, 52, 64, 0.12) !important;
+}
+
+.quick-toggle:active {
+  background-color: rgba(46, 52, 64, 0.15) !important;
+}
+
+.quick-toggle:checked {
+  background-color: #81A1C1 !important;
+  color: #2E3440;
+}
+
+.quick-toggle:checked:hover {
+  background-color: #81A1C1 !important;
+  color: #2E3440;
+}
+
+.quick-toggle:checked:active {
+  background-color: #88C0D0 !important;
+  color: #2E3440;
+}
+
+.quick-toggle > StBoxLayout {
+  spacing: 6px;
+}
+
+.quick-toggle.button {
+  padding: 0;
+}
+
+.quick-toggle > StBoxLayout {
+  padding: 0 12px;
+}
+
+.quick-toggle:ltr > StBoxLayout {
+  padding-left: 15px;
+}
+
+.quick-toggle:rtl > StBoxLayout {
+  padding-right: 15px;
+}
+
+.quick-toggle .quick-toggle-title {
+  font-weight: bold;
+}
+
+.quick-toggle StBoxLayout > .quick-toggle-subtitle {
+  font-weight: normal;
+  font-size: 12px;
+}
+
+.quick-toggle .quick-toggle-icon {
+  icon-size: 16px;
+}
+
+.quick-toggle-has-menu .quick-toggle {
+  min-width: auto;
+  max-width: auto;
+}
+
+.quick-toggle-has-menu .quick-toggle:ltr {
+  border-radius: 10px 0 0 10px;
+}
+
+.quick-toggle-has-menu .quick-toggle:ltr > StBoxLayout {
+  padding-right: 9px;
+}
+
+.quick-toggle-has-menu .quick-toggle:rtl {
+  border-radius: 0 10px 10px 0;
+}
+
+.quick-toggle-has-menu .quick-toggle:rtr > StBoxLayout {
+  padding-left: 9px;
+}
+
+.quick-toggle-has-menu .quick-toggle:ltr:last-child {
+  border-radius: 10px;
+}
+
+.quick-toggle-has-menu .quick-toggle:rtl:last-child {
+  border-radius: 10px;
+}
+
+.quick-toggle-has-menu .quick-toggle-menu-button {
+  background-color: rgba(46, 52, 64, 0.05) !important;
+  padding: 6px 10.5px;
+  border: none;
+}
+
+.quick-toggle-has-menu .quick-toggle-menu-button:hover {
+  background-color: rgba(46, 52, 64, 0.12) !important;
+}
+
+.quick-toggle-has-menu .quick-toggle-menu-button:active {
+  background-color: rgba(46, 52, 64, 0.15) !important;
+}
+
+.quick-toggle-has-menu .quick-toggle-menu-button:checked {
+  background-color: #81A1C1 !important;
+  color: #2E3440;
+}
+
+.quick-toggle-has-menu .quick-toggle-menu-button:checked:hover {
+  background-color: #81A1C1 !important;
+  color: #2E3440;
+}
+
+.quick-toggle-has-menu .quick-toggle-menu-button:checked:active {
+  background-color: #88C0D0 !important;
+  color: #2E3440;
+}
+
+.quick-toggle-has-menu .quick-toggle-menu-button:ltr {
+  border-radius: 0 10px 10px 0;
+  border-left-width: 0;
+}
+
+.quick-toggle-has-menu .quick-toggle-menu-button:rtl {
+  border-radius: 10px 0 0 10px;
+  border-right-width: 0;
+}
+
+.quick-slider > StBoxLayout {
+  spacing: 6px;
+}
+
+.quick-slider .slider-bin {
+  min-height: 16px;
+  padding: 6px;
+  border-radius: 9999px;
+}
+
+.quick-slider .slider-bin:focus {
+  color: #2E3440;
+  background-color: rgba(46, 52, 64, 0.08);
+  box-shadow: none;
+}
+
+.quick-slider .quick-toggle-icon {
+  icon-size: 16px;
+}
+
+.quick-slider .icon-button, .quick-slider .background-app-item .close-button, .background-app-item .quick-slider .close-button, .quick-slider .message .message-header .message-expand-button, .message .message-header .quick-slider .message-expand-button,
+.quick-slider .message .message-header .message-close-button,
+.message .message-header .quick-slider .message-close-button {
+  background-color: transparent;
+  color: #2E3440 !important;
+}
+
+.quick-slider .icon-button:hover, .quick-slider .background-app-item .close-button:hover, .background-app-item .quick-slider .close-button:hover, .quick-slider .message .message-header .message-expand-button:hover, .message .message-header .quick-slider .message-expand-button:hover,
+.quick-slider .message .message-header .message-close-button:hover,
+.message .message-header .quick-slider .message-close-button:hover {
+  background-color: rgba(46, 52, 64, 0.05);
+}
+
+.quick-slider .icon-button:active, .quick-slider .background-app-item .close-button:active, .background-app-item .quick-slider .close-button:active, .quick-slider .message .message-header .message-expand-button:active, .message .message-header .quick-slider .message-expand-button:active,
+.quick-slider .message .message-header .message-close-button:active,
+.message .message-header .quick-slider .message-close-button:active {
+  background-color: rgba(46, 52, 64, 0.12);
+}
+
+.quick-toggle-menu {
+  background-color: #E5E9F0 !important;
+  color: #2E3440 !important;
+  border-radius: 22px !important;
+  padding: 12px;
+  margin: 12px 18px 0;
+}
+
+.quick-toggle-menu .popup-menu-item {
+  border-radius: 10px !important;
+}
+
+.quick-toggle-menu .popup-menu-item:focus, .quick-toggle-menu .popup-menu-item:hover, .quick-toggle-menu .popup-menu-item.selected {
+  color: #2E3440 !important;
+  background-color: rgba(46, 52, 64, 0.1) !important;
+}
+
+.quick-toggle-menu .popup-menu-item:active {
+  color: #2E3440 !important;
+  background-color: rgba(46, 52, 64, 0.2) !important;
+}
+
+.quick-toggle-menu .popup-menu-item > StIcon {
+  -st-icon-style: symbolic;
+}
+
+.quick-toggle-menu .header {
+  spacing-rows: 3px;
+  spacing-columns: 12px;
+  padding-bottom: 12px;
+}
+
+.quick-toggle-menu .header .icon {
+  icon-size: 24px;
+  border-radius: 10px;
+  padding: 9px;
+  background-color: rgba(46, 52, 64, 0.12) !important;
+}
+
+.quick-toggle-menu .header .icon.active {
+  background-color: #81A1C1 !important;
+  color: #2E3440;
+}
+
+.quick-settings-system-item > StBoxLayout {
+  spacing: 12px;
+}
+
+.quick-settings-system-item .icon-button, .quick-settings-system-item .background-app-item .close-button, .background-app-item .quick-settings-system-item .close-button, .quick-settings-system-item .message .message-header .message-expand-button, .message .message-header .quick-settings-system-item .message-expand-button,
+.quick-settings-system-item .message .message-header .message-close-button,
+.message .message-header .quick-settings-system-item .message-close-button {
+  border-radius: 10px;
+}
+
+.quick-settings-system-item .icon-button > StIcon, .quick-settings-system-item .background-app-item .close-button > StIcon, .background-app-item .quick-settings-system-item .close-button > StIcon, .quick-settings-system-item .message .message-header .message-expand-button > StIcon, .message .message-header .quick-settings-system-item .message-expand-button > StIcon,
+.quick-settings-system-item .message .message-header .message-close-button > StIcon,
+.message .message-header .quick-settings-system-item .message-close-button > StIcon {
+  -st-icon-style: symbolic;
+  icon-size: 16px;
+}
+
+.quick-settings-system-item .power-item {
+  min-height: 0;
+  min-width: 0;
+}
+
+.quick-settings-system-item .power-item:insensitive {
+  color: #2E3440;
+  background-color: rgba(46, 52, 64, 0.06);
+  box-shadow: none;
+  background-color: transparent;
+}
+
+.nm-network-item .wireless-secure-icon {
+  icon-size: 8px;
+}
+
+.bt-device-item .popup-menu-icon {
+  -st-icon-style: symbolic;
+}
+
+.bt-menu-placeholder.popup-menu-item {
+  text-align: center;
+  padding: 2em 4em;
+}
+
+.device-subtitle {
+  color: rgba(46, 52, 64, 0.5);
+}
+
+.background-apps-quick-toggle {
+  min-height: 40px;
+  background-color: transparent;
+}
+
+.background-apps-quick-toggle StIcon {
+  icon-size: 16px !important;
+}
+
+.background-app-item .popup-menu-icon {
+  icon-size: 32px !important;
+  -st-icon-style: regular !important;
+}
+
+.background-app-item .close-button {
+  padding: 6px;
+}
+
+.background-app-item.popup-inactive-menu-item {
+  color: #2E3440;
+}
+
+/* Agata GNOME 48 split-toggle separator: keep the two halves visually continuous. */
+.quick-toggle-has-menu .quick-toggle-separator { width: 0 !important; min-width: 0 !important; background-color: transparent !important; }
+

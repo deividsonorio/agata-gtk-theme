@@ -1,0 +1,8 @@
+/* GNOME 47 — Dialog geometry adapted from Lavanda widgets-47-0. */
+.modal-dialog { padding: 8px; border: none; }
+.modal-dialog-button, .modal-dialog-linked-button { min-height: 32px !important; padding: 4px !important; margin: 0 !important; border: none !important; border-radius: 10px; }
+.modal-dialog-button-box { padding-top: 4px; }
+.modal-dialog-content-box { margin: 20px 28px; spacing: 20px; max-width: 28em; }
+.run-dialog { width: 26em; padding-bottom: 4px; }
+.prompt-dialog { width: 28em; }
+.prompt-dialog-password-grid { spacing-rows: 8px; spacing-columns: 4px; }

@@ -1,0 +1,74 @@
+/* GNOME Shell dock: compact spacing and no artificial separator. */
+#dash .dash-separator {
+  width: 0 !important;
+  min-width: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  background-color: transparent !important;
+}
+#dash .dash-separator, #dash .dash-background {
+  margin-bottom: 0 !important;
+}
+#dashtodockContainer.left #dash, #dashtodockContainer.right #dash {
+  padding: 6px 0 !important;
+}
+#dashtodockContainer.left #dash .dash-item-container .show-apps,
+#dashtodockContainer.left #dash .dash-item-container .overview-tile,
+#dashtodockContainer.left #dash .dash-item-container .grid-search-result,
+#dashtodockContainer.right #dash .dash-item-container .show-apps,
+#dashtodockContainer.right #dash .dash-item-container .overview-tile,
+#dashtodockContainer.right #dash .dash-item-container .grid-search-result {
+  margin: 0 1px !important;
+  padding-bottom: 4px !important;
+}
+#dashtodockContainer.left #dash .dash-item-container .show-apps .overview-icon,
+#dashtodockContainer.left #dash .dash-item-container .overview-tile .overview-icon,
+#dashtodockContainer.left #dash .dash-item-container .grid-search-result .overview-icon,
+#dashtodockContainer.right #dash .dash-item-container .show-apps .overview-icon,
+#dashtodockContainer.right #dash .dash-item-container .overview-tile .overview-icon,
+#dashtodockContainer.right #dash .dash-item-container .grid-search-result .overview-icon {
+  padding: 4px !important;
+}
+
+
+/* Final GNOME 50+ geometry fixes.
+ * These rules are deliberately limited to the actual Dash-to-Dock
+ * containers so the regular GNOME Shell theme remains untouched.
+ */
+
+/* Keep the outer edge of the dock flush with the container.
+ * Dash-to-Dock adds position-dependent padding/margins; the previous
+ * patch left a visible strip at the outer edge on vertical and bottom docks.
+ */
+#dashtodockContainer.left #dash,
+#dashtodockContainer.right #dash,
+#dashtodockContainer.top #dash,
+#dashtodockContainer.bottom #dash {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#dashtodockContainer.left #dash .dash-background,
+#dashtodockContainer.right #dash .dash-background,
+#dashtodockContainer.top #dash .dash-background,
+#dashtodockContainer.bottom #dash .dash-background {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#dashtodockContainer.left #dashtodockDashContainer,
+#dashtodockContainer.right #dashtodockDashContainer,
+#dashtodockContainer.top #dashtodockDashContainer,
+#dashtodockContainer.bottom #dashtodockDashContainer {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#dashtodockContainer.left #dashtodockDashScrollview,
+#dashtodockContainer.right #dashtodockDashScrollview,
+#dashtodockContainer.top #dashtodockDashScrollview,
+#dashtodockContainer.bottom #dashtodockDashScrollview {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+

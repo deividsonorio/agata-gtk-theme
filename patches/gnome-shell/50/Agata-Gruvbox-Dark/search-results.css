@@ -1,0 +1,8 @@
+/* GNOME 46 — Search Results geometry adapted from Lavanda widgets-46-0. */
+#searchResults { margin: 0 4px; }
+#searchResultsContent { max-width: 1044px; }
+.search-section { spacing: 12px; }
+.search-section .search-section-separator { height: 8px; background-color: transparent; }
+.search-section-content { padding: 8px; margin: 0 12px; border: none; box-shadow: none; }
+.grid-search-results { spacing: 20px; margin: 0 12px; }
+.list-search-results { spacing: 4px; }

@@ -1,0 +1,6 @@
+/* GNOME 46 — Calendar geometry adapted from Lavanda widgets-46-0. */
+.calendar { padding: 4px !important; margin: 0 !important; }
+.calendar-change-month-back, .calendar-change-month-forward { padding: 0 !important; margin: 4px 0 !important; }
+.calendar .pager-button { width: 32px !important; height: 32px !important; margin: 2px !important; border-radius: 999px; }
+.calendar .calendar-day { width: 34px !important; height: 34px !important; padding: 0 !important; margin: 2px !important; border-radius: 999px; }
+.calendar .calendar-day-heading { margin: 4px; padding: 2px 4px; }

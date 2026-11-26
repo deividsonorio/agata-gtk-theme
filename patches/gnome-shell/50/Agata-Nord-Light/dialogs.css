@@ -1,0 +1,84 @@
+/* GNOME 50 — Dialog geometry and button colors adapted from Lavanda widgets-47-0.
+ * GNOME 50 keeps the dialog implementation from the previous component generation,
+ * so the Agata component is complete here and can be selected as a single versioned unit.
+ */
+.modal-dialog {
+    padding: 8px;
+    border: none;
+    color: #2E3440;
+}
+
+.modal-dialog-button,
+.modal-dialog-linked-button {
+    min-height: 32px !important;
+    padding: 4px !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 10px;
+}
+
+.modal-dialog-button:first-child,
+.modal-dialog-linked-button:first-child {
+    background-color: rgba(46, 52, 64, 0.05) !important;
+    color: #2E3440 !important;
+}
+
+.modal-dialog-button:first-child:hover,
+.modal-dialog-linked-button:first-child:hover {
+    background-color: rgba(46, 52, 64, 0.12) !important;
+    color: #2E3440 !important;
+}
+
+.modal-dialog-button:first-child:active,
+.modal-dialog-linked-button:first-child:active {
+    background-color: rgba(46, 52, 64, 0.15) !important;
+    color: #2E3440 !important;
+}
+
+.modal-dialog-button:last-child,
+.modal-dialog-linked-button:last-child {
+    background-color: #81A1C1 !important;
+    color: #ECEFF4 !important;
+}
+
+.modal-dialog-button:last-child:hover,
+.modal-dialog-linked-button:last-child:hover {
+    background-color: #81A1C1 !important;
+    color: #ECEFF4 !important;
+}
+
+.modal-dialog-button:last-child:active,
+.modal-dialog-linked-button:last-child:active {
+    background-color: #81A1C1 !important;
+    color: #ECEFF4 !important;
+}
+
+.modal-dialog-button:insensitive,
+.modal-dialog-linked-button:insensitive {
+    background-color: rgba(129, 161, 193, 0.05) !important;
+    color: rgba(236, 239, 244, 0.35) !important;
+}
+
+.modal-dialog-button-box {
+    padding-top: 4px;
+}
+
+.modal-dialog-content-box {
+    margin: 20px 28px;
+    spacing: 20px;
+    max-width: 28em;
+}
+
+.run-dialog {
+    width: 26em;
+    padding-bottom: 4px;
+}
+
+.prompt-dialog {
+    width: 28em;
+}
+
+.prompt-dialog-password-grid {
+    spacing-rows: 8px;
+    spacing-columns: 4px;
+}

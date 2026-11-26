@@ -340,7 +340,7 @@ link_libadwaita() {
 
 
 # --------------------------------------------------
-# GNOME Shell 50+ compatibility
+# GNOME Shell versioned component compatibility
 # --------------------------------------------------
 
 detect_gnome_shell_version() {
@@ -349,7 +349,7 @@ detect_gnome_shell_version() {
     AGATA_GNOME_SHELL_MAJOR=""
 
     if ! command -v gnome-shell >/dev/null 2>&1; then
-        printf 'GNOME Shell: not detected; GNOME 50+ patch will not be applied.\n'
+        printf 'GNOME Shell: not detected; no GNOME Shell versioned patch will be applied.\n'
         export AGATA_GNOME_SHELL_MAJOR=""
         return 0
     fi
@@ -360,36 +360,65 @@ detect_gnome_shell_version() {
     if [[ -n "$AGATA_GNOME_SHELL_MAJOR" ]]; then
         printf 'GNOME Shell detected: %s\n' "$AGATA_GNOME_SHELL_MAJOR"
     else
-        printf 'GNOME Shell version could not be detected; GNOME 50+ patch will not be applied.\n'
+        printf 'GNOME Shell version could not be detected; no GNOME Shell patch will be applied.\n'
     fi
 
     export AGATA_GNOME_SHELL_MAJOR
 }
 
-apply_gnome_shell_50_patch() {
+gnome_shell_patch_version() {
+    local version="$1"
+
+    case "$version" in
+        46|47|48|49|50|51)
+            printf '%s' "$version"
+            ;;
+        *)
+            if (( version >= 51 )); then
+                printf '51'
+            else
+                printf ''
+            fi
+            ;;
+    esac
+}
+
+apply_gnome_shell_versioned_patch() {
     local theme_dir="$1"
-    local theme_name
     local shell_css="${theme_dir}/gnome-shell/gnome-shell.css"
-    local patch_file
+    local patch_root="${REPO_DIR}/patches/gnome-shell"
+    local version
+    local component
+    local count=0
 
-    theme_name="$(basename "$theme_dir")"
-    patch_file="${REPO_DIR}/patches/gnome-shell-50/${theme_name}.css"
+    [[ -n "$AGATA_GNOME_SHELL_MAJOR" ]] || return 0
+    [[ -f "$shell_css" ]] || return 0
 
-    if [[ -n "$AGATA_GNOME_SHELL_MAJOR" &&
-          "$AGATA_GNOME_SHELL_MAJOR" -ge 50 &&
-          -f "$shell_css" &&
-          -f "$patch_file" ]]; then
+    version="$(gnome_shell_patch_version "$AGATA_GNOME_SHELL_MAJOR")"
+
+    if [[ -z "$version" ]]; then
+        printf 'GNOME Shell %s: no versioned Agata component patch required.\n' \
+            "$AGATA_GNOME_SHELL_MAJOR"
+        return 0
+    fi
+
+    local patch_dir="${patch_root}/${version}/$(basename "$theme_dir")"
+
+    [[ -d "$patch_dir" ]] ||
+        fail "GNOME Shell component directory not found: $patch_dir"
+
+    # The installed theme is copied from the clean repository before this
+    # function runs. Only this one GNOME version directory is applied.
+    while IFS= read -r -d '' component; do
         {
             printf '\n\n'
-            cat "$patch_file"
+            cat "$component"
         } >> "$shell_css"
+        count=$((count + 1))
+    done < <(find "$patch_dir" -maxdepth 1 -type f -name '*.css' -print0 | sort -z)
 
-        printf 'Applied GNOME Shell 50+ compatibility patch: %s\n' "$theme_name"
-    elif [[ -n "$AGATA_GNOME_SHELL_MAJOR" &&
-            "$AGATA_GNOME_SHELL_MAJOR" -lt 50 ]]; then
-        printf 'GNOME Shell %s: keeping standard Agata shell styling (no GNOME 50+ patch).\n' \
-            "$AGATA_GNOME_SHELL_MAJOR"
-    fi
+    printf 'Applied GNOME Shell %s component set (%s components): %s\n' \
+        "$version" "$count" "$(basename "$theme_dir")"
 }
 
 # --------------------------------------------------
@@ -433,7 +462,7 @@ install_themes() {
         rm -rf -- "$target"
         mv -- "$temp" "$target"
 
-        apply_gnome_shell_50_patch "$target"
+        apply_gnome_shell_versioned_patch "$target"
 
         printf 'Installed: %s\n' "$target"
     done

@@ -1,0 +1,6 @@
+/* GNOME 46 — App Grid structure adapted from Lavanda widgets-46-0. */
+.icon-grid { row-spacing: 12px; column-spacing: 12px; max-row-spacing: 36px; max-column-spacing: 36px; page-padding-top: 24px; page-padding-bottom: 24px; page-padding-left: 18px; page-padding-right: 18px; }
+.overview-tile { border-radius: 20px; padding: 6px; border: none; transition-duration: 100ms; text-align: center; background-color: transparent; }
+.app-folder { border-radius: 20px; }
+.app-folder .overview-icon { background-color: transparent; border-radius: 20px; }
+.app-grid-running-dot { width: 12px; height: 3px; border-radius: 2px; margin-bottom: 0; offset-y: 3px; }

@@ -1,0 +1,8 @@
+/* GNOME 47 — Check Box structure adapted from Lavanda widgets-47-0. */
+.check-box StBoxLayout { spacing: .8em; }
+.check-box StBin { width: 24px; height: 24px; padding: 2px; border-radius: 999px; }
+.check-box StIcon { icon-size: 0; padding: 0; color: transparent !important; border: none !important; background-color: transparent !important; }
+.check-box StBin, .check-box:focus StBin { background-image: url("assets/checkbox-off.svg"); background-color: transparent; box-shadow: none; }
+.check-box:hover StBin { background-image: url("assets/checkbox-off-hover.svg"); }
+.check-box:active StBin { background-image: url("assets/checkbox-off-active.svg"); }
+.check-box:checked StBin, .check-box:focus:checked StBin { background-image: url("assets/checkbox.svg"); }

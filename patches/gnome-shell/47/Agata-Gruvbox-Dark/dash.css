@@ -1,0 +1,5 @@
+/* GNOME 46 — Dash geometry adapted from Lavanda widgets-46-0. */
+#dash { padding-left: 8px; padding-right: 8px; }
+#dash .dash-item-container .show-apps, #dash .dash-item-container .overview-tile { padding: 0; margin: 0 2px; padding-bottom: 12px; }
+#dash .dash-item-container .overview-icon { padding: 4px; text-align: center; }
+#dash .dash-separator { width: 1px; margin-left: 4px; margin-right: 4px; }
