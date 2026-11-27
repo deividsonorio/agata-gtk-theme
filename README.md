@@ -1,6 +1,6 @@
 # *Agata GTK Theme*
 
-**v1.1.0**
+**v1.1.1**
 
 Agata is a modern GTK theme featuring two carefully crafted color editions: **Nord** and **Gruvbox**. It combines elegant surfaces, balanced contrast, and distinctive color accents to provide a clean and consistent desktop experience.
 
