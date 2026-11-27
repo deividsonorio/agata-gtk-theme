@@ -1,3 +1,3 @@
-/* GNOME 47 — Notification button geometry adapted from Lavanda widgets-47-0. */
+/* GNOME 47 — Notification button geometry - widgets-47-0. */
 .notification-buttons-bin { spacing: 0; }
 .notification-button { min-height: 40px; padding: 0 12px; margin: 0; border: none; border-radius: 10px; }

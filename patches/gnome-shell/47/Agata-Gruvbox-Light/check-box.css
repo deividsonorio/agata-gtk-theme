@@ -1,4 +1,4 @@
-/* GNOME 47 — Check Box structure adapted from Lavanda widgets-47-0. */
+/* GNOME 47 — Check Box structure - widgets-47-0. */
 .check-box StBoxLayout { spacing: .8em; }
 .check-box StBin { width: 24px; height: 24px; padding: 2px; border-radius: 999px; }
 .check-box StIcon { icon-size: 0; padding: 0; color: transparent !important; border: none !important; background-color: transparent !important; }

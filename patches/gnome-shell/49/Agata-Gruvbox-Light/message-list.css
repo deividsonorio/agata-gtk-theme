@@ -1,4 +1,4 @@
-/* GNOME 48 — Message List geometry adapted from Lavanda widgets-48-0. */
+/* GNOME 48 — Message List geometry - widgets-48-0. */
 .message-list { width: 29em; padding: 0; }
 .message-view { -st-vfade-offset: 68px; }
 .message-view .message { margin-bottom: 8px !important; border-radius: 16px; }

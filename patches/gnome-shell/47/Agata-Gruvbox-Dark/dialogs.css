@@ -1,4 +1,4 @@
-/* GNOME 47 — Dialog geometry adapted from Lavanda widgets-47-0. */
+/* GNOME 47 — Dialog geometry - widgets-47-0. */
 .modal-dialog { padding: 8px; border: none; }
 .modal-dialog-button, .modal-dialog-linked-button { min-height: 32px !important; padding: 4px !important; margin: 0 !important; border: none !important; border-radius: 10px; }
 .modal-dialog-button-box { padding-top: 4px; }

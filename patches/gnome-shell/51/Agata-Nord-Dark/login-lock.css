@@ -1,4 +1,4 @@
-/* GNOME 51 — Login / Lock screen structure adapted from Lavanda widgets-51-0. */
+/* GNOME 51 — Login / Lock screen structure - widgets-51-0. */
 .login-dialog .login-dialog-prompt-layout, .unlock-dialog .login-dialog-prompt-layout { width: 30em; height: 550px; }
 .login-dialog .login-dialog-input-well { margin: 12px 0; }
 .login-dialog .login-dialog-prompt-entry-area { margin: 0 20px; }

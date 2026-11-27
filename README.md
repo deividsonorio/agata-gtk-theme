@@ -1,6 +1,6 @@
 # Agata GTK Theme
 
-**v1.1.1**
+**v1.1.2**
 
 Agata is a modern desktop theme for **GTK 3 and GTK 4**, with matching styles for **GNOME Shell, Cinnamon, XFCE** and other GTK-based applications.
 
@@ -263,7 +263,7 @@ The appearance may vary depending on the desktop environment, GTK version, compo
 
 ---
 
-## What's New in v1.1.1
+## What's New in v1.1.2
 
 - Redesigned GNOME Shell component architecture for GNOME 46–51.
 - GNOME Shell components now use version-specific implementations.

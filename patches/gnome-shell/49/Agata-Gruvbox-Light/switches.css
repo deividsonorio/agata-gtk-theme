@@ -1,4 +1,4 @@
-/* GNOME 47 — Switch structure adapted from Lavanda widgets-47-0. */
+/* GNOME 47 — Switch structure - widgets-47-0. */
 .toggle-switch { width: 46px; height: 24px; background-size: contain; background-image: url("assets/toggle-off.svg"); transition-duration: 100ms; color: transparent; }
 .toggle-switch:checked { background-image: url("assets/toggle-on.svg"); color: transparent; }
 .toggle-switch:checked .handle, .toggle-switch StIcon, .toggle-switch .handle { background: none; box-shadow: none; }
