@@ -1038,7 +1038,7 @@ StScrollBar StButton#vhandle:active, StScrollBar StButton#hhandle:active {
   margin-from-right-edge-of-screen: 18px;
   width: 28em;
   color: #2E3440;
-  background-color: rgba(44, 44, 44, 0.8);
+  background-color: rgba(228, 231, 236, 0.8);
   box-shadow: 0 5px 12px rgba(0, 0, 0, 0.35);
   margin: 7px 12px 17px 12px;
 }
